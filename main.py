@@ -8,32 +8,29 @@ load_dotenv()
 
 app = FastAPI()
 
-
 client = Groq(
     api_key=os.getenv("GROQ_API_KEY")
 )
 
+class ContentRequest(BaseModel):
+    topic: str
+    technology: str
+    content_type: str
+    tone: str
+
 @app.get("/")
 def home():
-    return {
-        "msg": "you are Home"
-    }
-
+    return {"msg": "you are Home"}
 
 @app.post("/generate")
-def generate_content(
-    topic: str,
-    technology: str,
-    content_type: str,
-    tone: str
-):
+def generate_content(data: ContentRequest):
 
     prompt = f"""
-    Generate a {content_type}
+    Generate a {data.content_type}
 
-    Topic: {topic}
-    Technology: {technology}
-    Tone: {tone}
+    Topic: {data.topic}
+    Technology: {data.technology}
+    Tone: {data.tone}
     """
 
     response = client.chat.completions.create(
@@ -49,4 +46,3 @@ def generate_content(
     return {
         "content": response.choices[0].message.content
     }
-
