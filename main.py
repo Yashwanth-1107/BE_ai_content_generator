@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 from groq import Groq
 from dotenv import load_dotenv
 import os
