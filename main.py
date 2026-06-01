@@ -10,7 +10,7 @@ app = FastAPI()
 
 
 client = Groq(
-    api_key=os.getenv("s_keyy")
+    api_key=os.getenv("s_key")
 )
 
 @app.get("/")
