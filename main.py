@@ -7,9 +7,17 @@ load_dotenv()
 
 app = FastAPI()
 
+
 client = Groq(
     api_key=os.getenv("s_key")
 )
+
+@app.get("/")
+def home():
+    return {
+        "msg": "you are Home"
+    }
+
 
 @app.post("/generate")
 def generate_content(
@@ -40,3 +48,4 @@ def generate_content(
     return {
         "content": response.choices[0].message.content
     }
+
